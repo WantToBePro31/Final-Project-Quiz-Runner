@@ -17,12 +17,6 @@ gsap.set(figure.params, {
 })
 
 gsap.to(figure.params, {
-	ry: helper.degreesToRadians(360),
-	repeat: -1,
-	duration: 20
-})
-
-gsap.to(figure.params, {
 	y: 0,
 	armRotation: helper.degreesToRadians(90),
 	repeat: -1,
@@ -44,12 +38,6 @@ figure2.body.rotation.y -= 0.3
 
 gsap.set(figure2.params, {
 	y: -1.5
-})
-
-gsap.to(figure2.params, {
-	ry: helper.degreesToRadians(360),
-	repeat: -1,
-	duration: 20
 })
 
 gsap.to(figure2.params, {

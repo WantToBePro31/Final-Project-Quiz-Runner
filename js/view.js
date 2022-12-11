@@ -5,6 +5,9 @@ export class View {
       height: window.innerHeight,
     };
     this.scene = new THREE.Scene();
+    // this.scene.background = new THREE.Color(0xFAD7C3);
+    const loader = new THREE.TextureLoader();
+		this.scene.background = loader.load( 'images/bg.jpg' );
     this.camera = new THREE.PerspectiveCamera(
       75,
       this.sizes.width / this.sizes.height,
@@ -23,6 +26,8 @@ export class View {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.render(this.scene, this.camera);
     document.body.appendChild(this.renderer.domElement);
+    const titleText = document.getElementById('title');
+    titleText.innerHTML = "Trivia Quiz";
   }
 
   init() {

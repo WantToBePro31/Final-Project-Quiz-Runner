@@ -8,6 +8,8 @@ export class Figure {
       x: 0,
       y: 0,
       z: 0,
+      ry: 0,
+      ...params,
     };
 
     // Create group for figure and positioning
@@ -15,6 +17,7 @@ export class Figure {
     this.group.position.x = this.params.x;
     this.group.position.y = this.params.y;
     this.group.position.z = this.params.z;
+    this.group.rotation.y = this.params.ry;
 
     // Set outer material
     this.headColor = helper.random(0, 360);
@@ -171,6 +174,7 @@ export class Figure {
   }
 
   bounce() {
+    // this.group.rotation.y = this.params.ry;
     this.group.position.y = this.params.y;
     this.arms[0].rotation.z = this.params.armRotation;
     this.arms[1].rotation.z = -this.params.armRotation;

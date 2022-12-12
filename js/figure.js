@@ -8,7 +8,6 @@ export class Figure {
       x: 0,
       y: 0,
       z: 0,
-      ry: 0,
       ...params,
     };
 
@@ -19,10 +18,10 @@ export class Figure {
     this.group.position.z = this.params.z;
 
     // Set outer material
-    this.headColor = helper.random(0, 360);
-    this.bodyColor = helper.random(0, 360);
-    this.headLightness = helper.random(20, 100);
-    this.bodyLightness = helper.random(20, 80);
+    this.headColor = helper.randomColor(0, 360);
+    this.bodyColor = helper.randomColor(0, 360);
+    this.headLightness = helper.randomColor(20, 100);
+    this.bodyLightness = helper.randomColor(20, 80);
     this.headMaterial = new THREE.MeshLambertMaterial({
       color: `hsl(${this.headColor}, 60%, ${this.headLightness}%)`,
     });
@@ -174,7 +173,6 @@ export class Figure {
 
   bounce() {
     this.group.position.y = this.params.y;
-    this.group.rotation.y = this.params.ry;
     this.arms[0].rotation.z = this.params.armRotation;
     this.arms[1].rotation.z = -this.params.armRotation;
   }

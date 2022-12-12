@@ -17,15 +17,14 @@ export class Figure {
     this.group.position.x = this.params.x;
     this.group.position.y = this.params.y;
     this.group.position.z = this.params.z;
-    this.group.rotation.y = this.params.ry;
 
     // Set outer material
     this.headColor = helper.random(0, 360);
     this.bodyColor = helper.random(0, 360);
-    this.headLightness = helper.random(40, 65);
-    this.bodyLightness = helper.random(40, 65);
+    this.headLightness = helper.random(20, 100);
+    this.bodyLightness = helper.random(20, 80);
     this.headMaterial = new THREE.MeshLambertMaterial({
-      color: `hsl(${this.headColor}, 40%, ${this.headLightness}%)`,
+      color: `hsl(${this.headColor}, 60%, ${this.headLightness}%)`,
     });
     this.bodyMaterial = new THREE.MeshLambertMaterial({
       color: `hsl(${this.bodyColor}, 85%, ${this.bodyLightness}%)`,

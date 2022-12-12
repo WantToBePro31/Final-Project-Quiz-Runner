@@ -5,7 +5,6 @@ export class View {
       height: window.innerHeight,
     };
     this.scene = new THREE.Scene();
-    // this.scene.background = new THREE.Color(0xFAD7C3);
     const loader = new THREE.TextureLoader();
 		this.scene.background = loader.load( 'images/bg.jpg' );
     this.camera = new THREE.PerspectiveCamera(

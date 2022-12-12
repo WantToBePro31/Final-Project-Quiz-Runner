@@ -175,6 +175,7 @@ export class Figure {
 
   bounce() {
     this.group.position.y = this.params.y;
+    this.group.rotation.y = this.params.ry;
     this.arms[0].rotation.z = this.params.armRotation;
     this.arms[1].rotation.z = -this.params.armRotation;
   }

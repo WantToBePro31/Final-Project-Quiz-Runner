@@ -7,6 +7,7 @@ const view = new View()
 view.init()
 const figure = new Figure()
 figure.init(view.scene)
+figure.head.rotation.y += 3.5;
 
 gsap.set(figure.params, {
 	y: -1.5
@@ -17,10 +18,10 @@ gsap.to(figure.params, {
 	armRotation: helper.degreesToRadians(90),
 	repeat: -1,
 	yoyo: true,
-	duration: 0.5
+	duration: 1,
 })
 
 gsap.ticker.add(() => {
-	figure.bounce()
+	figure.bounce(),
 	view.render()
 })

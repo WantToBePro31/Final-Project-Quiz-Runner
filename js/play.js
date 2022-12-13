@@ -27,11 +27,11 @@ gsap.to(figure.params, {
 });
 
 gsap.ticker.add(() => {
-  if (obstacle.stoneGroup.children[0].position.x < 0) {
-    obstacle.stoneGroup.children[0].position.x -= 0.02;
-  } else if (obstacle.stoneGroup.children[0].position.x > 0) {
-    obstacle.stoneGroup.children[0].position.x += 0.02;
-  }
+  // if (obstacle.stoneGroup.children[0].position.x < 0) {
+  //   obstacle.stoneGroup.children[0].position.x -= 0.04;
+  // } else if (obstacle.stoneGroup.children[0].position.x > 0) {
+  //   obstacle.stoneGroup.children[0].position.x += 0.04;
+  // }
   obstacle.stoneGroup.children[0].position.y -= 0.03;
   obstacle.stoneGroup.children[0].position.z += 0.3;
   if (obstacle.stoneGroup.children[0].position.z > 30) {
@@ -64,3 +64,9 @@ window.addEventListener("keydown", (e) => {
       break;
   }
 });
+
+window.setInterval(() => {
+  if(Math.abs(figure.group.position.x - obstacle.stoneGroup.children[0].position.x) < 0.1 && Math.abs(figure.group.position.z - obstacle.stoneGroup.children[0].position.z ) < 0.3)console.log("collide");
+}, 20);
+
+window.addEventListener();

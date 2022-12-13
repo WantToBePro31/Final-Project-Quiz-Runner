@@ -28,6 +28,7 @@ gsap.to(figure.params, {
 });
 
 gsap.ticker.add(() => {
+  // console.log(obstacle.stoneGroup.children[0].position.x, obstacle.stoneGroup.children[0].position.z)
   if (obstacle.stoneGroup.children[0].position.x < 0) {
     obstacle.stoneGroup.children[0].position.x -= 0.02;
   } else if (obstacle.stoneGroup.children[0].position.x > 0) {
@@ -77,11 +78,11 @@ window.addEventListener("keydown", (e) => {
 
 window.setInterval(() => {
   if (
-    (obstacle.stoneGroup.children[0].position.x == 0 &&
+    (Math.abs(obstacle.stoneGroup.children[0].position.x - figure.group.position.x) < 0.5 && figure.group.position.x == 0 &&
       Math.abs(
         figure.group.position.z - obstacle.stoneGroup.children[0].position.z
       ) < 0.77) ||
-    (obstacle.stoneGroup.children[0].position.x != 0 &&
+    (Math.abs(obstacle.stoneGroup.children[0].position.x - figure.group.position.x) < 0.7 &&
       Math.abs(
         figure.group.position.z - obstacle.stoneGroup.children[0].position.z
       ) < 1.6)

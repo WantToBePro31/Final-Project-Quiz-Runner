@@ -13,6 +13,7 @@ figure.head.children[2].position.z -= 1;
 figure.group.position.y -= 1;
 const obstacle = new Obstacle();
 obstacle.makeStone(view.scene);
+let dead = 0;
 
 gsap.set(figure.params, {
   y: -1.5,
@@ -27,11 +28,11 @@ gsap.to(figure.params, {
 });
 
 gsap.ticker.add(() => {
-  // if (obstacle.stoneGroup.children[0].position.x < 0) {
-  //   obstacle.stoneGroup.children[0].position.x -= 0.04;
-  // } else if (obstacle.stoneGroup.children[0].position.x > 0) {
-  //   obstacle.stoneGroup.children[0].position.x += 0.04;
-  // }
+  if (obstacle.stoneGroup.children[0].position.x < 0) {
+    obstacle.stoneGroup.children[0].position.x -= 0.02;
+  } else if (obstacle.stoneGroup.children[0].position.x > 0) {
+    obstacle.stoneGroup.children[0].position.x += 0.02;
+  }
   obstacle.stoneGroup.children[0].position.y -= 0.03;
   obstacle.stoneGroup.children[0].position.z += 0.3;
   if (obstacle.stoneGroup.children[0].position.z > 30) {
@@ -39,7 +40,9 @@ gsap.ticker.add(() => {
     obstacle.stoneGroup.children[0].position.y = -0.2;
     obstacle.stoneGroup.children[0].position.z = -20;
   }
-  view.render();
+  if (dead === 0) {
+    view.render();
+  }
 });
 
 window.addEventListener("keydown", (e) => {
@@ -61,12 +64,30 @@ window.addEventListener("keydown", (e) => {
         break;
       }
     case "Space":
+      gsap.ticker.add(() => {
+        let curPos = figure.group.position.y;
+        figure.group.position.y += 1;
+        if (curPos + 1 == figure.group.position.y) {
+          figure.group.position.y -= 1;
+        }
+      });
       break;
   }
 });
 
 window.setInterval(() => {
-  if(Math.abs(figure.group.position.x - obstacle.stoneGroup.children[0].position.x) < 0.1 && Math.abs(figure.group.position.z - obstacle.stoneGroup.children[0].position.z ) < 0.3)console.log("collide");
-}, 20);
-
-window.addEventListener();
+  if (
+    (obstacle.stoneGroup.children[0].position.x == 0 &&
+      Math.abs(
+        figure.group.position.z - obstacle.stoneGroup.children[0].position.z
+      ) < 0.77) ||
+    (obstacle.stoneGroup.children[0].position.x != 0 &&
+      Math.abs(
+        figure.group.position.z - obstacle.stoneGroup.children[0].position.z
+      ) < 1.6)
+  ) {
+    const gameOver = document.getElementById("game-over");
+    gameOver.style.display = "block";
+    dead = 1;
+  }
+});

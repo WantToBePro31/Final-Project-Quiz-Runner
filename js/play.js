@@ -6,6 +6,8 @@ import { Obstacle } from "./obstacle.js";
 const helper = new Helper();
 const view = new View();
 view.init();
+view.camera.position.set(0, 5, 10); // Set position like this
+view.camera.lookAt(new THREE.Vector3(0,0,0)); // Set look at coordinate like this
 const figure = new Figure();
 figure.init(view.scene);
 figure.head.children[1].position.z -= 1;

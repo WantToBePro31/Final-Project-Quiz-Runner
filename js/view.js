@@ -13,7 +13,11 @@ export class View {
       0.1,
       1000
     );
-    this.camera.position.z = 5;
+    this.camera.position.x = 0;
+    this.camera.position.y = 1;
+   this.camera.position.z = 7.5;
+    // this.camera.position.set(0, figure.height, 3);
+    // camera.lookAt(new THREE.Vector3(0, player.height, 0));
     this.renderer = new THREE.WebGLRenderer();
     this.lightAmbient = new THREE.AmbientLight(0x9eaeff, 0.5);
     this.lightDirectional = new THREE.DirectionalLight(0xffffff, 0.8);

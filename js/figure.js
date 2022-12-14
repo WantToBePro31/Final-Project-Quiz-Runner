@@ -30,9 +30,11 @@ export class Figure {
     });
 
     this.arms = [];
+    this.legs = [];
 
     this.dead = 0;
     this.jump = 0;
+    this.walk = 0;
   }
 
   createHead() {
@@ -129,22 +131,26 @@ export class Figure {
   }
 
   createLegs() {
-    // Create a new group for the legs
-    const legs = new THREE.Group();
+    for (let i = 0; i < 2; i++) {
+      // Create a new group for the legs
+      const legGroup = new THREE.Group();
 
-    // Create the legs and add to the group
-    const legGeometry = new THREE.BoxGeometry(0.25, 0.4, 0.25);
-    const leftLeg = new THREE.Mesh(legGeometry, this.headMaterial);
-    const rightLeg = new THREE.Mesh(legGeometry, this.headMaterial);
-    leftLeg.position.x = -0.22;
-    rightLeg.position.x = 0.22;
-    legs.add(leftLeg, rightLeg);
+      // Create the legs and add to the group
+      const legGeometry = new THREE.BoxGeometry(0.25, 0.4, 0.25);
+      const leg = new THREE.Mesh(legGeometry, this.headMaterial);
+      legGroup.add(leg);
 
-    // Position for the legs group
-    legs.position.y = -1.15;
+      // Position for the legs group
+      const n = i % 2 === 0 ? 1 : -1; //look for side
+      legGroup.position.x = 0.22 * n;
+      legGroup.position.y = -1.15;
 
-    // Add the legs group to the body
-    this.body.add(legs);
+      // Add the legs group to the body
+      this.body.add(legGroup);
+
+      // Push leg group to the legs array
+      this.legs.push(legGroup);
+    }
   }
 
   createArms() {
@@ -180,20 +186,47 @@ export class Figure {
     this.arms[1].rotation.z = -this.params.armRotation;
   }
 
+  doWalk(walkFlag) {
+    if (walkFlag === 0) {
+      this.arms[0].rotation.x += 0.1;
+      this.arms[1].rotation.x -= 0.1;
+      this.legs[0].rotation.x -= 0.05;
+      this.legs[1].rotation.x += 0.05;
+      if (this.arms[0].rotation.x >= 1.5) {
+        return 1;
+      }
+      return 0;
+    }
+    if (walkFlag === 1) {
+      this.arms[0].rotation.x -= 0.1;
+      this.arms[1].rotation.x += 0.1;
+      this.legs[0].rotation.x += 0.05;
+      this.legs[1].rotation.x -= 0.05;
+      if (this.arms[0].rotation.x <= -1.5) {
+        return 0;
+      }
+      return 1;
+    }
+  }
+
   doJump(jumpFlag) {
     if (jumpFlag === 1) {
-      this.group.position.y += 0.1;
+      this.group.position.y += 0.15;
+      this.arms[0].rotation.z += 0.05;
+      this.arms[1].rotation.z -= 0.05;
       if (this.group.position.y >= 1.5) {
         return 2;
       }
-      return 1
+      return 1;
     }
     if (jumpFlag === 2) {
-      this.group.position.y -= 0.1;
+      this.group.position.y -= 0.15;
+      this.arms[0].rotation.z -= 0.05;
+      this.arms[1].rotation.z += 0.05;
       if (this.group.position.y <= -0.9) {
         return 0;
       }
-      return 2
+      return 2;
     }
   }
 

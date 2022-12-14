@@ -7,7 +7,7 @@ const helper = new Helper();
 const view = new View();
 view.init();
 view.camera.position.set(0, 5, 10); // Set position like this
-view.camera.lookAt(new THREE.Vector3(0,0,0)); // Set look at coordinate like this
+view.camera.lookAt(new THREE.Vector3(0, 0, 0)); // Set look at coordinate like this
 const figure = new Figure();
 figure.init(view.scene);
 figure.head.children[1].position.z -= 1;
@@ -36,7 +36,7 @@ gsap.ticker.add(() => {
       curStone.position.y,
       curStone.position.z
     );
-    console.log(obstacle.stoneGroup.position);
+    figure.walk = figure.doWalk(figure.walk);
     figure.jump = figure.doJump(figure.jump);
     view.render();
     view.score++;
@@ -84,6 +84,11 @@ window.setInterval(() => {
   ) {
     const gameOver = document.getElementById("game-over");
     gameOver.style.display = "block";
+    let highScore = localStorage.getItem("highScore");
+    localStorage.setItem(
+      "highScore",
+      helper.updateHighScore(highScore === null ? 0 : highScore, view.score - 1)
+    );
     figure.dead = 1;
   }
 }, 20);

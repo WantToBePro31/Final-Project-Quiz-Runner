@@ -4,9 +4,11 @@ export class View {
       width: window.innerWidth,
       height: window.innerHeight,
     };
+
     this.scene = new THREE.Scene();
     const loader = new THREE.TextureLoader();
-		this.scene.background = loader.load( 'images/bg.jpg' );
+    this.scene.background = loader.load("images/bg.jpg");
+
     this.camera = new THREE.PerspectiveCamera(
       75,
       this.sizes.width / this.sizes.height,
@@ -15,16 +17,16 @@ export class View {
     );
     this.camera.position.x = 0;
     this.camera.position.y = 1;
-   this.camera.position.z = 7.5;
-    // this.camera.position.set(0, figure.height, 3);
-    // camera.lookAt(new THREE.Vector3(0, player.height, 0));
+    this.camera.position.z = 7.5;
+
     this.renderer = new THREE.WebGLRenderer();
+
     this.lightAmbient = new THREE.AmbientLight(0x9eaeff, 0.5);
     this.lightDirectional = new THREE.DirectionalLight(0xffffff, 0.8);
     this.lightDirectional.position.set(5, 5, 5);
 
     // Road
-    this.planeTexture = new THREE.TextureLoader().load('images/road.jpg');
+    this.planeTexture = new THREE.TextureLoader().load("images/road.jpg");
     this.planeTexture.wrapS = THREE.RepeatWrapping;
     this.planeTexture.wrapT = THREE.RepeatWrapping;
     this.planeTexture.repeat.set(1, 20);
@@ -38,22 +40,23 @@ export class View {
     this.plane.receiveShadow = true;
     this.plane.position.y = -5;
     this.plane.position.z = -30;
-    
-    // Initialize the scores
+
+    // Initialize the scores and high scores
     this.score = 0;
   }
 
   render() {
     // Road animation
     this.plane.position.z += 0.3;
-    if(this.plane.position.z > 40) this.plane.position.z = -30;
-    
+    if (this.plane.position.z > 40) this.plane.position.z = -30;
+
     this.renderer.setSize(this.sizes.width, this.sizes.height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.render(this.scene, this.camera);
+
     document.body.appendChild(this.renderer.domElement);
-    document.getElementById('title').innerHTML = "Quiz Runner";
-    document.getElementById("score").innerHTML = "Score:"  + " " + this.score;
+    document.getElementById("title").innerHTML = "Quiz Runner";
+    document.getElementById("score").innerHTML = "Score: " + this.score;
   }
 
   init() {

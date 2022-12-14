@@ -18,4 +18,8 @@ export class Helper {
     if (place == 2) return 0;
     return 0.5;
   }
+
+  updateHighScore(prevScore, curScore) {
+    return Math.max(prevScore, curScore);
+  }
 }

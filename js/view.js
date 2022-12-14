@@ -34,6 +34,9 @@ export class View {
     this.plane.receiveShadow = true;
     this.plane.position.y = -5;
     this.plane.position.z = -30;
+    
+    // Initialize the scores
+    this.score = 0;
   }
 
   render() {
@@ -45,11 +48,8 @@ export class View {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.render(this.scene, this.camera);
     document.body.appendChild(this.renderer.domElement);
-    const titleText = document.getElementById('title');
-    titleText.innerHTML = "Trivia Quiz";
-    // Initialize the scores and difficulty.
-    var score = 0;
-    document.getElementById("score").innerHTML = "Score:"  + " " + score;
+    document.getElementById('title').innerHTML = "Quiz Runner";
+    document.getElementById("score").innerHTML = "Score:"  + " " + this.score;
   }
 
   init() {

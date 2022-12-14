@@ -14,8 +14,8 @@ export class Helper {
   randomPlace() {
     const place = Math.floor(Math.random() * 3) + 1;
 
-    if (place == 1) return -0.6;
+    if (place == 1) return -0.5;
     if (place == 2) return 0;
-    return 0.6;
+    return 0.5;
   }
 }

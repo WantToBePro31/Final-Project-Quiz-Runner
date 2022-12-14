@@ -180,6 +180,23 @@ export class Figure {
     this.arms[1].rotation.z = -this.params.armRotation;
   }
 
+  doJump(jumpFlag) {
+    if (jumpFlag === 1) {
+      this.group.position.y += 0.1;
+      if (this.group.position.y >= 1.5) {
+        return 2;
+      }
+      return 1
+    }
+    if (jumpFlag === 2) {
+      this.group.position.y -= 0.1;
+      if (this.group.position.y <= -0.9) {
+        return 0;
+      }
+      return 2
+    }
+  }
+
   init(scene) {
     scene.add(this.group);
     this.createBody();

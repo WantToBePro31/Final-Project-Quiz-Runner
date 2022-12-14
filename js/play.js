@@ -27,33 +27,17 @@ gsap.to(figure.params, {
 });
 
 gsap.ticker.add(() => {
-  // console.log(obstacle.stoneGroup.children[0].position.x, obstacle.stoneGroup.children[0].position.z)
-  if (obstacle.stoneGroup.children[0].position.x < 0) {
-    obstacle.stoneGroup.children[0].position.x -= 0.02;
-  } else if (obstacle.stoneGroup.children[0].position.x > 0) {
-    obstacle.stoneGroup.children[0].position.x += 0.02;
-  }
-  obstacle.stoneGroup.children[0].position.y -= 0.03;
-  obstacle.stoneGroup.children[0].position.z += 0.3;
-  if (obstacle.stoneGroup.children[0].position.z > 30) {
-    obstacle.stoneGroup.children[0].position.x = helper.randomPlace();
-    obstacle.stoneGroup.children[0].position.y = -0.2;
-    obstacle.stoneGroup.children[0].position.z = -20;
-  }
-  if (figure.jump === 1) {
-    figure.group.position.y += 0.1;
-    if (figure.group.position.y >= 1.5) {
-      figure.jump = 2;
-    }
-  }
-  if (figure.jump === 2) {
-    figure.group.position.y -= 0.1;
-    if (figure.group.position.y <= -0.9) {
-      figure.jump = 0;
-    }
-  }
   if (figure.dead === 0) {
+    let curStone = obstacle.moveStone();
+    obstacle.stoneGroup.position.set(
+      curStone.position.x,
+      curStone.position.y,
+      curStone.position.z
+    );
+    console.log(obstacle.stoneGroup.position);
+    figure.jump = figure.doJump(figure.jump);
     view.render();
+    view.score++;
   }
 });
 
@@ -76,29 +60,28 @@ window.addEventListener("keydown", (e) => {
         break;
       }
     case "Space":
+    case "ArrowUp":
       figure.jump = 1;
       break;
   }
 });
 
 window.setInterval(() => {
+  let distX = Math.abs(
+    obstacle.stoneGroup.children[0].position.x - figure.group.position.x
+  );
+  let distY = Math.abs(
+    figure.group.position.y - obstacle.stoneGroup.children[0].position.y
+  );
+  let distZ = Math.abs(
+    figure.group.position.z - obstacle.stoneGroup.children[0].position.z
+  );
   if (
-    (Math.abs(
-      obstacle.stoneGroup.children[0].position.x - figure.group.position.x
-    ) < 0.5 &&
-      figure.group.position.x == 0 &&
-      Math.abs(
-        figure.group.position.z - obstacle.stoneGroup.children[0].position.z
-      ) < 0.77) ||
-    (Math.abs(
-      obstacle.stoneGroup.children[0].position.x - figure.group.position.x
-    ) < 0.7 &&
-      Math.abs(
-        figure.group.position.z - obstacle.stoneGroup.children[0].position.z
-      ) < 1.6)
+    (distX < 0.2 && distY < 1.5 && distZ < 2) ||
+    (distX < 1.3 && distY < 1.5 && distZ < 2)
   ) {
     const gameOver = document.getElementById("game-over");
     gameOver.style.display = "block";
     figure.dead = 1;
   }
-});
+}, 20);

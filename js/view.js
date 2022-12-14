@@ -47,6 +47,9 @@ export class View {
     document.body.appendChild(this.renderer.domElement);
     const titleText = document.getElementById('title');
     titleText.innerHTML = "Trivia Quiz";
+    // Initialize the scores and difficulty.
+    var score = 0;
+    document.getElementById("score").innerHTML = "Score:"  + " " + score;
   }
 
   init() {

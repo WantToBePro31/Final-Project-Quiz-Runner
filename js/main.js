@@ -52,3 +52,8 @@ gsap.ticker.add(() => {
 	figure2.bounce()
 	view.render()
 })
+
+// Initialize the scores and difficulty.
+var score = 0;
+// difficulty = 0;
+document.getElementById("score").innerHTML = "score = " + " " + score;

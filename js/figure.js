@@ -30,6 +30,9 @@ export class Figure {
     });
 
     this.arms = [];
+
+    this.dead = 0;
+    this.jump = 0;
   }
 
   createHead() {

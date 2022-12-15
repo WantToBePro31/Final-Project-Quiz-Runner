@@ -35,6 +35,9 @@ export class Figure {
     this.dead = 0;
     this.jump = 0;
     this.walk = 0;
+    this.moveLeft = 0;
+    this.moveRight = 0;
+    this.stepCount = 0;
   }
 
   createHead() {
@@ -227,6 +230,36 @@ export class Figure {
         return 0;
       }
       return 2;
+    }
+  }
+
+  doMoveLeft(moveLeftFlag, step) {
+    if (moveLeftFlag === 1) {
+      if (step === 0) {
+        this.stepCount = 1;
+      }
+      this.group.position.x -= 0.5;
+      this.stepCount++;
+      if (this.group.position.x <= -3 || step === 6) {
+        this.stepCount = 0;
+        return 0;
+      }
+      return 1;
+    }
+  }
+
+  doMoveRight(moveRightFlag, step) {
+    if (moveRightFlag === 1) {
+      if (step === 0) {
+        this.stepCount = 1;
+      }
+      this.group.position.x += 0.5;
+      this.stepCount++;
+      if (this.group.position.x >= 3 || step === 6) {
+        this.stepCount = 0;
+        return 0;
+      }
+      return 1;
     }
   }
 

@@ -16,18 +16,6 @@ figure.group.position.y -= 1;
 const obstacle = new Obstacle();
 obstacle.makeStone(view.scene);
 
-gsap.set(figure.params, {
-  y: -1.5,
-});
-
-gsap.to(figure.params, {
-  y: 0,
-  armRotation: helper.degreesToRadians(90),
-  repeat: -1,
-  yoyo: true,
-  duration: 0.5,
-});
-
 gsap.ticker.add(() => {
   if (figure.dead === 0) {
     let curStone = obstacle.moveStone();
@@ -38,6 +26,8 @@ gsap.ticker.add(() => {
     );
     figure.walk = figure.doWalk(figure.walk);
     figure.jump = figure.doJump(figure.jump);
+    figure.moveLeft = figure.doMoveLeft(figure.moveLeft, figure.stepCount);
+    figure.moveRight = figure.doMoveRight(figure.moveRight, figure.stepCount);
     view.render();
     view.score++;
   }
@@ -48,7 +38,7 @@ window.addEventListener("keydown", (e) => {
     case "KeyA":
     case "ArrowLeft":
       if (figure.group.position.x > -3) {
-        figure.group.position.x -= 3;
+        figure.moveLeft = 1
         break;
       } else {
         break;
@@ -56,7 +46,7 @@ window.addEventListener("keydown", (e) => {
     case "KeyD":
     case "ArrowRight":
       if (figure.group.position.x < 3) {
-        figure.group.position.x += 3;
+        figure.moveRight = 1
         break;
       } else {
         break;

@@ -15,6 +15,8 @@ export class Obstacle {
     this.stoneGroup.position.x = this.params.x;
     this.stoneGroup.position.y = this.params.y;
     this.stoneGroup.position.z = this.params.z;
+
+    this.speed = 0.2
   }
 
   createStone() {
@@ -45,8 +47,8 @@ export class Obstacle {
     } else if (this.stoneGroup.children[0].position.x > 0) {
       this.stoneGroup.children[0].position.x += 0.02;
     }
-    this.stoneGroup.children[0].position.y -= 0.03;
-    this.stoneGroup.children[0].position.z += 0.3;
+    this.stoneGroup.children[0].position.y -= 0.03 * this.speed;
+    this.stoneGroup.children[0].position.z += 0.3 * this.speed;
     if (this.stoneGroup.children[0].position.z > 30) {
       this.stoneGroup.children[0].position.x = helper.randomPlace();
       this.stoneGroup.children[0].position.y = -0.2;

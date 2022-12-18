@@ -16,29 +16,32 @@ figure.group.position.y -= 1;
 const obstacle = new Obstacle();
 obstacle.makeStone(view.scene);
 
+//play controller
 gsap.ticker.add(() => {
   if (figure.dead === 0) {
+    if (view.score % 1000 === 0) obstacle.speed += 0.2;
+    figure.walk = figure.doWalk(figure.walk);
+    figure.jump = figure.doJump(figure.jump);
+    figure.moveLeft = figure.doMoveLeft(figure.moveLeft, figure.stepCount);
+    figure.moveRight = figure.doMoveRight(figure.moveRight, figure.stepCount);
     let curStone = obstacle.moveStone();
     obstacle.stoneGroup.position.set(
       curStone.position.x,
       curStone.position.y,
       curStone.position.z
     );
-    figure.walk = figure.doWalk(figure.walk);
-    figure.jump = figure.doJump(figure.jump);
-    figure.moveLeft = figure.doMoveLeft(figure.moveLeft, figure.stepCount);
-    figure.moveRight = figure.doMoveRight(figure.moveRight, figure.stepCount);
     view.render();
     view.score++;
   }
 });
 
+//set key movement
 window.addEventListener("keydown", (e) => {
   switch (e.code) {
     case "KeyA":
     case "ArrowLeft":
       if (figure.group.position.x > -3) {
-        figure.moveLeft = 1
+        figure.moveLeft = 1;
         break;
       } else {
         break;
@@ -46,7 +49,7 @@ window.addEventListener("keydown", (e) => {
     case "KeyD":
     case "ArrowRight":
       if (figure.group.position.x < 3) {
-        figure.moveRight = 1
+        figure.moveRight = 1;
         break;
       } else {
         break;
@@ -58,6 +61,7 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+//set collision
 window.setInterval(() => {
   let distX = Math.abs(
     obstacle.stoneGroup.children[0].position.x - figure.group.position.x
@@ -69,8 +73,8 @@ window.setInterval(() => {
     figure.group.position.z - obstacle.stoneGroup.children[0].position.z
   );
   if (
-    (distX < 0.2 && distY < 1.5 && distZ < 2) ||
-    (distX < 1.3 && distY < 1.5 && distZ < 2)
+    (distX < 0.2 && distY < 1.2 && distZ < 2) ||
+    (distX < 1.3 && distY < 1.2 && distZ < 2)
   ) {
     const gameOver = document.getElementById("game-over");
     gameOver.style.display = "block";

@@ -26,7 +26,7 @@ obstacle2.addOtherStone(obstacle3);
 stones.push(obstacle1, obstacle2, obstacle3);
 let isQuiz = false;
 
-rand_stone = helper.randomCount()
+rand_stone = helper.randomCount();
 if (rand_stone === 1) {
   obstacle2.disableStone();
   obstacle3.disableStone();
@@ -42,10 +42,7 @@ function gameOverCondition() {
   let highScore = localStorage.getItem("highScore");
   localStorage.setItem(
     "highScore",
-    helper.updateHighScore(
-      highScore === null ? 0 : highScore,
-      view.score - 1
-    )
+    helper.updateHighScore(highScore === null ? 0 : highScore, view.score - 1)
   );
   figure.dead = 1;
 }
@@ -58,7 +55,6 @@ gsap.ticker.add(() => {
     figure.moveLeft = figure.doMoveLeft(figure.moveLeft, figure.stepCount);
     figure.moveRight = figure.doMoveRight(figure.moveRight, figure.stepCount);
     stones.forEach((stone) => {
-      if (view.score % 1000 === 0) stone.speed += 0.2;
       let curStone = stone.moveStone();
       stone.stoneGroup.position.set(
         curStone.position.x,
@@ -67,7 +63,7 @@ gsap.ticker.add(() => {
       );
     });
     if (!randomized) {
-      rand_stone = helper.randomCount()
+      rand_stone = helper.randomCount();
       randomized = true;
     }
     if (rand_stone === 1) {
@@ -86,7 +82,7 @@ window.addEventListener("keydown", (e) => {
   switch (e.code) {
     case "KeyA":
     case "ArrowLeft":
-      if (figure.group.position.x > -3) {
+      if (figure.group.position.x > -4) {
         figure.moveLeft = 1;
         break;
       } else {
@@ -94,7 +90,7 @@ window.addEventListener("keydown", (e) => {
       }
     case "KeyD":
     case "ArrowRight":
-      if (figure.group.position.x < 3) {
+      if (figure.group.position.x < 4) {
         figure.moveRight = 1;
         break;
       } else {
@@ -117,7 +113,7 @@ window.setInterval(() => {
     let distZ = Math.abs(figure.group.position.z - stone.stoneGroup.position.z);
     if (
       (distX < 0.2 && distY < 1.5 && distZ < 2) ||
-      (distX < 1.5 && distY < 1.5 && distZ < 2)
+      (distX < 2 && distY < 1.5 && distZ < 2)
     ) {
       gameOverCondition();
     }
@@ -125,17 +121,33 @@ window.setInterval(() => {
       isQuiz = true;
       figure.dead = 1;
       let remainingTime = 10;
-      
+
       let quizContainer = document.getElementById("quiz-container");
       quizContainer.style.display = "block";
       let quizTime = document.getElementById("quiz-time");
       quizTime.innerHTML = remainingTime;
 
       let answer = 0;
-      document.getElementById("answer-1").addEventListener("click", function() {answer = 1});
-      document.getElementById("answer-2").addEventListener("click", function() {answer = 2});
-      document.getElementById("answer-3").addEventListener("click", function() {answer = 3});
-      document.getElementById("answer-4").addEventListener("click", function() {answer = 4});
+      document
+        .getElementById("answer-1")
+        .addEventListener("click", function () {
+          answer = 1;
+        });
+      document
+        .getElementById("answer-2")
+        .addEventListener("click", function () {
+          answer = 2;
+        });
+      document
+        .getElementById("answer-3")
+        .addEventListener("click", function () {
+          answer = 3;
+        });
+      document
+        .getElementById("answer-4")
+        .addEventListener("click", function () {
+          answer = 4;
+        });
 
       // ganti bagian ini
       let question = "Test Soal";
@@ -161,8 +173,7 @@ window.setInterval(() => {
             quizContainer.style.display = "none";
             figure.dead = 0;
             isQuiz = false;
-          }
-          else {
+          } else {
             gameOverCondition();
             quizContainer.style.display = "none";
           }
@@ -170,7 +181,6 @@ window.setInterval(() => {
           clearInterval(countdown);
         }
       }, 100);
-
     }
   });
 }, 20);

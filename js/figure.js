@@ -240,7 +240,7 @@ export class Figure {
       }
       this.group.position.x -= 0.5;
       this.stepCount++;
-      if (this.group.position.x <= -3 || step === 6) {
+      if (this.group.position.x <= -4 || step === 8) {
         this.stepCount = 0;
         return 0;
       }
@@ -255,7 +255,7 @@ export class Figure {
       }
       this.group.position.x += 0.5;
       this.stepCount++;
-      if (this.group.position.x >= 3 || step === 6) {
+      if (this.group.position.x >= 4 || step === 8) {
         this.stepCount = 0;
         return 0;
       }

@@ -24,6 +24,7 @@ obstacle3.addOtherStone(obstacle1, obstacle2);
 obstacle3.makeStone(view.scene);
 obstacle2.addOtherStone(obstacle3);
 stones.push(obstacle1, obstacle2, obstacle3);
+let isQuiz = false;
 
 rand_stone = helper.randomCount()
 if (rand_stone === 1) {
@@ -31,6 +32,22 @@ if (rand_stone === 1) {
   obstacle3.disableStone();
 } else if (rand_stone === 2) {
   obstacle3.disableStone();
+}
+
+function gameOverCondition() {
+  const gameOver = document.getElementById("game-over");
+  gameOver.style.display = "block";
+  const exitgame = document.getElementById("exit-game");
+  exitgame.style.display = "block";
+  let highScore = localStorage.getItem("highScore");
+  localStorage.setItem(
+    "highScore",
+    helper.updateHighScore(
+      highScore === null ? 0 : highScore,
+      view.score - 1
+    )
+  );
+  figure.dead = 1;
 }
 
 //play controller
@@ -102,19 +119,58 @@ window.setInterval(() => {
       (distX < 0.2 && distY < 1.5 && distZ < 2) ||
       (distX < 1.5 && distY < 1.5 && distZ < 2)
     ) {
-      const gameOver = document.getElementById("game-over");
-      gameOver.style.display = "block";
-      const exitgame = document.getElementById("exit-game");
-      exitgame.style.display = "block";
-      let highScore = localStorage.getItem("highScore");
-      localStorage.setItem(
-        "highScore",
-        helper.updateHighScore(
-          highScore === null ? 0 : highScore,
-          view.score - 1
-        )
-      );
+      gameOverCondition();
+    }
+    if (helper.randomGenerator(1000) && !isQuiz && view.score > 1000) {
+      isQuiz = true;
       figure.dead = 1;
+      let remainingTime = 10;
+      
+      let quizContainer = document.getElementById("quiz-container");
+      quizContainer.style.display = "block";
+      let quizTime = document.getElementById("quiz-time");
+      quizTime.innerHTML = remainingTime;
+
+      let answer = 0;
+      document.getElementById("answer-1").addEventListener("click", function() {answer = 1});
+      document.getElementById("answer-2").addEventListener("click", function() {answer = 2});
+      document.getElementById("answer-3").addEventListener("click", function() {answer = 3});
+      document.getElementById("answer-4").addEventListener("click", function() {answer = 4});
+
+      // ganti bagian ini
+      let question = "Test Soal";
+      let keyAnswer = 1;
+
+      let quizQuestion = document.getElementById("quiz-question");
+      quizQuestion.innerHTML = question;
+
+      const countdown = setInterval(() => {
+        remainingTime--;
+        quizTime.innerHTML = remainingTime;
+        if (remainingTime <= 0) {
+          gameOverCondition();
+          quizContainer.style.display = "none";
+          clearInterval(checkAnswer);
+          clearInterval(countdown);
+        }
+      }, 1000);
+
+      const checkAnswer = setInterval(() => {
+        if (answer) {
+          if (answer === keyAnswer) {
+            quizContainer.style.display = "none";
+            figure.dead = 0;
+            isQuiz = false;
+          }
+          else {
+            gameOverCondition();
+            quizContainer.style.display = "none";
+          }
+          clearInterval(checkAnswer);
+          clearInterval(countdown);
+        }
+      }, 100);
+
     }
   });
 }, 20);

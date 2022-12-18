@@ -15,6 +15,10 @@ export class Helper {
     return Math.floor(Math.random() * 3) + 1;
   }
 
+  randomGenerator(count) {
+    return !(Math.floor(Math.random() * count));
+  } 
+
   randomPlace() {
     const place = this.randomCount();
 

@@ -11,8 +11,12 @@ export class Helper {
     return Math.floor(val);
   }
 
+  randomCount() {
+    return Math.floor(Math.random() * 3) + 1;
+  }
+
   randomPlace() {
-    const place = Math.floor(Math.random() * 3) + 1;
+    const place = this.randomCount();
 
     if (place == 1) return -0.5;
     if (place == 2) return 0;

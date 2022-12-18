@@ -104,6 +104,8 @@ window.setInterval(() => {
     ) {
       const gameOver = document.getElementById("game-over");
       gameOver.style.display = "block";
+      const exitgame = document.getElementById("exit-game");
+      exitgame.style.display = "block";
       let highScore = localStorage.getItem("highScore");
       localStorage.setItem(
         "highScore",

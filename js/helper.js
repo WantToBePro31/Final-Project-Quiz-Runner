@@ -16,8 +16,8 @@ export class Helper {
   }
 
   randomGenerator(count) {
-    return !(Math.floor(Math.random() * count));
-  } 
+    return !Math.floor(Math.random() * count);
+  }
 
   randomPlace() {
     const place = this.randomCount();

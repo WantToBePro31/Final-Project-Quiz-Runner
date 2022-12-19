@@ -26,7 +26,7 @@ obstacle3.makeStone(view.scene);
 obstacle2.addOtherStone(obstacle3);
 stones.push(obstacle1, obstacle2, obstacle3);
 
-rand_stone = helper.randomCount()
+rand_stone = helper.randomCount();
 if (rand_stone === 1) {
   obstacle2.disableStone();
   obstacle3.disableStone();
@@ -42,10 +42,7 @@ function gameOverCondition() {
   let highScore = localStorage.getItem("highScore");
   localStorage.setItem(
     "highScore",
-    helper.updateHighScore(
-      highScore === null ? 0 : highScore,
-      view.score - 1
-    )
+    helper.updateHighScore(highScore === null ? 0 : highScore, view.score - 1)
   );
   figure.dead = 1;
 }
@@ -58,7 +55,6 @@ gsap.ticker.add(() => {
     figure.moveLeft = figure.doMoveLeft(figure.moveLeft, figure.stepCount);
     figure.moveRight = figure.doMoveRight(figure.moveRight, figure.stepCount);
     stones.forEach((stone) => {
-      if (view.score % 1000 === 0) stone.speed += 0.2;
       let curStone = stone.moveStone();
       stone.stoneGroup.position.set(
         curStone.position.x,
@@ -67,7 +63,7 @@ gsap.ticker.add(() => {
       );
     });
     if (!randomized) {
-      rand_stone = helper.randomCount()
+      rand_stone = helper.randomCount();
       randomized = true;
     }
     if (rand_stone === 1) {
@@ -86,7 +82,7 @@ window.addEventListener("keydown", (e) => {
   switch (e.code) {
     case "KeyA":
     case "ArrowLeft":
-      if (figure.group.position.x > -3) {
+      if (figure.group.position.x > -4) {
         figure.moveLeft = 1;
         break;
       } else {
@@ -94,7 +90,7 @@ window.addEventListener("keydown", (e) => {
       }
     case "KeyD":
     case "ArrowRight":
-      if (figure.group.position.x < 3) {
+      if (figure.group.position.x < 4) {
         figure.moveRight = 1;
         break;
       } else {
@@ -112,26 +108,48 @@ window.addEventListener("keydown", (e) => {
 //set collision
 window.setInterval(() => {
   stones.forEach((stone) => {
-    let distX = Math.abs(stone.stoneGroup.position.x - figure.group.position.x);
+    let distX = Math.abs(figure.group.position.x - stone.stoneGroup.position.x);
     let distY = Math.abs(figure.group.position.y - stone.stoneGroup.position.y);
     let distZ = Math.abs(figure.group.position.z - stone.stoneGroup.position.z);
     if (
-      (distX < 0.2 && distY < 1.5 && distZ < 2) ||
-      (distX < 1.5 && distY < 1.5 && distZ < 2)
+      (distX < 0.2 && distY < 1.5 && distZ < 1.8) ||
+      (distX < 1.7 && distY < 1.5 && distZ < 0.7) ||
+      (distX > 1.2 && distX < 2 && distY < 1.5 && distZ > 1.6 && distZ < 2)
     ) {
       gameOverCondition();
     }
-    if (helper.randomGenerator(1000) && !isQuiz && view.score > 1000 && !figure.dead) {
+    if (
+      helper.randomGenerator(1000) &&
+      !isQuiz &&
+      view.score > 1000 &&
+      !figure.dead
+    ) {
       isQuiz = true;
       figure.dead = 1;
 
       const quiz = new Quiz();
       quiz.init();
 
-      document.getElementById("answer-1").addEventListener("click", function() {quiz.answer = 1});
-      document.getElementById("answer-2").addEventListener("click", function() {quiz.answer = 2});
-      document.getElementById("answer-3").addEventListener("click", function() {quiz.answer = 3});
-      document.getElementById("answer-4").addEventListener("click", function() {quiz.answer = 4});
+      document
+        .getElementById("answer-1")
+        .addEventListener("click", function () {
+          quiz.answer = 1;
+        });
+      document
+        .getElementById("answer-2")
+        .addEventListener("click", function () {
+          quiz.answer = 2;
+        });
+      document
+        .getElementById("answer-3")
+        .addEventListener("click", function () {
+          quiz.answer = 3;
+        });
+      document
+        .getElementById("answer-4")
+        .addEventListener("click", function () {
+          quiz.answer = 4;
+        });
 
       const countdown = setInterval(() => {
         if (quiz.updateRemainingTime()) {
@@ -141,15 +159,14 @@ window.setInterval(() => {
           clearInterval(countdown);
         }
       }, 1000);
-  
+
       const checkAnswer = setInterval(() => {
         if (quiz.filledAnswer()) {
           if (quiz.checkAnswer()) {
             figure.dead = 0;
             isQuiz = false;
             quiz.closeQuiz();
-          }
-          else {
+          } else {
             gameOverCondition();
             quiz.closeQuiz();
           }

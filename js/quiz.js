@@ -7,12 +7,11 @@ export class Quiz {
         this.quizContainer = document.getElementById("quiz-container");
         this.quizTime = document.getElementById("quiz-time");
         this.quizQuestion = document.getElementById("quiz-question");
-
         this.remainingTime = 10;
         this.answer = 0;
 
         // default values
-        this.description = "Test Quiz";
+        this.description = "(3*9)-(4^2)";
         this.keyAnswer = 1;
     } 
     updateRemainingTime() {

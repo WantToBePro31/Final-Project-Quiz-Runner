@@ -11,12 +11,20 @@ export class Helper {
     return Math.floor(val);
   }
 
-  randomPlace() {
-    const place = Math.floor(Math.random() * 3) + 1;
+  randomCount() {
+    return Math.floor(Math.random() * 3) + 1;
+  }
 
-    if (place == 1) return -0.5;
+  randomGenerator(count) {
+    return !Math.floor(Math.random() * count);
+  }
+
+  randomPlace() {
+    const place = this.randomCount();
+
+    if (place == 1) return -1;
     if (place == 2) return 0;
-    return 0.5;
+    return 1;
   }
 
   updateHighScore(prevScore, curScore) {

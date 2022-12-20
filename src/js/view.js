@@ -7,7 +7,7 @@ export class View {
 
     this.scene = new THREE.Scene();
     const loader = new THREE.TextureLoader();
-    this.scene.background = loader.load("images/bg.jpg");
+    this.scene.background = loader.load("../../assets/images/bg.jpg");
 
     this.camera = new THREE.PerspectiveCamera(
       75,
@@ -26,7 +26,7 @@ export class View {
     this.lightPoint.position.set(5, 5, 5);
 
     // Road
-    this.planeTexture = new THREE.TextureLoader().load("images/road.jpg");
+    this.planeTexture = new THREE.TextureLoader().load("../../assets/images/road.jpg");
     this.planeTexture.wrapS = THREE.RepeatWrapping;
     this.planeTexture.wrapT = THREE.RepeatWrapping;
     this.planeTexture.repeat.set(1, 20);

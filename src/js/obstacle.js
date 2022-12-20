@@ -23,7 +23,7 @@ export class Obstacle {
     // Create the stone
     this.stoneGeometry = new THREE.BoxGeometry(1.8, 1.8, 1.8);
     this.stoneTexture = new THREE.TextureLoader().load(
-      "images/stone-texture.jpg"
+      "../../assets/images/stone-texture.jpg"
     );
     this.stoneMaterial = new THREE.MeshBasicMaterial({
       map: this.stoneTexture,

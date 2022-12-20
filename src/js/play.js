@@ -34,6 +34,17 @@ if (rand_stone === 1) {
   obstacle3.disableStone();
 }
 
+function storeScore(score) {
+  $.ajax({
+    type: "POST",
+    url: "../backend/api/score/store.php",
+    data: {
+      score: score,
+    },
+    async: true,
+  });
+}
+
 function gameOverCondition() {
   const gameOver = document.getElementById("game-over");
   gameOver.style.display = "block";
@@ -44,6 +55,7 @@ function gameOverCondition() {
     "highScore",
     helper.updateHighScore(highScore === null ? 0 : highScore, view.score - 1)
   );
+  storeScore(view.score - 1);
   figure.dead = 1;
 }
 

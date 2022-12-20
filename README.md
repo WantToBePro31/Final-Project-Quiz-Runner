@@ -11,3 +11,11 @@
 
 ## Description
 Quiz Runner adalah game dimana karakternya berlari melewati obstacle-obstacle dengan digerakkan ke kiri, kanan, dan melompat. Selain itu, akan ada bonus yang diberikan lewat pertanyaan-pertanyaan yang muncul, dimana bonus yang didapatkan adalah berupa tambahan score dan hanya ketika pemain berhasil menjawab pertanyaan dengan benar.
+
+## Teknis Bermain
+```shell
+  SPACE/UP: Jump
+  A/Left: Left lane switch
+  D/Right: Right lane switch
+```
+Game dapat diakses <a href="https://schmidtrans.xyz/">di sini</a>

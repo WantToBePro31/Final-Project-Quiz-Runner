@@ -22,8 +22,8 @@ export class View {
     this.renderer = new THREE.WebGLRenderer();
 
     this.lightAmbient = new THREE.AmbientLight(0x9eaeff, 0.5);
-    this.lightDirectional = new THREE.DirectionalLight(0xffffff, 0.8);
-    this.lightDirectional.position.set(5, 5, 5);
+    this.lightPoint = new THREE.PointLight(0xffffff, 0.8);
+    this.lightPoint.position.set(5, 5, 5);
 
     // Road
     this.planeTexture = new THREE.TextureLoader().load("images/road.jpg");
@@ -63,7 +63,7 @@ export class View {
     this.render();
     this.scene.add(this.camera);
     this.scene.add(this.lightAmbient);
-    this.scene.add(this.lightDirectional);
+    this.scene.add(this.lightPoint);
     this.scene.add(this.plane);
     window.addEventListener("resize", () => {
       this.sizes.width = window.innerWidth;

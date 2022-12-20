@@ -50,7 +50,7 @@
     </div>
 
     <a href="play.html"
-      ><button class="Play-Button" role="button">
+      ><button class="Play-Button" role="button" id="apDiv1">
         <span class="text">Play Game</span>
       </button></a
     >
@@ -60,5 +60,19 @@
       const highScore = document.querySelector("#high-score");
       highScore.innerHTML = "High Score: " + localStorage.getItem("highScore");
     </script>
+
+    <!-- <script>
+      $(function(){
+          function playOnClick(){
+            var sound = $("#menu_sound")[0];     
+            sound.play();
+         }
+         $('#apDiv1').hover(function(){
+             playOnClick();
+         });
+      });
+      </script> -->
+
+    <audio autoplay id="menu_sound" src="main_menu.mp3" type="audio/mp3"></audio>
   </body>
 </html>

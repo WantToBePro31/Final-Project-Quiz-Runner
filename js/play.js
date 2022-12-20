@@ -166,6 +166,7 @@ window.setInterval(() => {
             figure.dead = 0;
             isQuiz = false;
             quiz.closeQuiz();
+            view.score += 500;
           } else {
             gameOverCondition();
             quiz.closeQuiz();

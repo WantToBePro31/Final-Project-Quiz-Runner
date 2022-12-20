@@ -10,4 +10,4 @@
 | Ingwer Ludwig Nommensen	| 5025201259 |
 
 ## Description
-Quiz Runner adalah game dimana karakternya berlari melewati obstacle-obstacle dengan digerakkan ke kiri, kanan, dan melompat. Selain itu, akan ada bonus yang diberikan lewat pertanyaan-pertanyaan yang muncul ketika ada material yang bisa mereka dapatkan dimana bonus yang didapatkan adalah berupa tambahan score dan hanya ketika pemain berhasil menjawab pertanyaan dengan benar.
+Quiz Runner adalah game dimana karakternya berlari melewati obstacle-obstacle dengan digerakkan ke kiri, kanan, dan melompat. Selain itu, akan ada bonus yang diberikan lewat pertanyaan-pertanyaan yang muncul, dimana bonus yang didapatkan adalah berupa tambahan score dan hanya ketika pemain berhasil menjawab pertanyaan dengan benar.
